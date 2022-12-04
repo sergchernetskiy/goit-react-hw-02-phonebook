@@ -18,6 +18,8 @@ export const TitleContacts = styled.h2`
   font-size: ${p => p.theme.fontSizes.l};
   font-weight: ${p => p.theme.fontWeights.heading};
   line-height: ${p => p.theme.lineHeights.heading};
+  max-width: 312px;
   color: ${p => p.theme.colors.pink};
-  margin-bottom: ${p => p.theme.space[4]}px;
+  margin-bottom: ${p => p.theme.space[3]}px;
+  margin-left: ${p => p.theme.space[4]}px;
 `;

@@ -34,6 +34,7 @@ export const Input = styled.input`
   font-size: ${p => p.theme.fontSizes.m};
   border-radius: ${p => p.theme.radii.normal};
   border: none;
+  background-color: #afa3d8;
 
   &:focus-visible {
     outline: 2px solid ${p => p.theme.colors.pink};
