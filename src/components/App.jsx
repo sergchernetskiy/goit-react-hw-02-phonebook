@@ -1,6 +1,5 @@
 import { Component } from 'react';
 import { nanoid } from 'nanoid';
-import { NotificationManager } from 'react-notifications';
 import { Box } from '../components/Box';
 import Form from './Form/Form';
 import { Filter } from './Filter/Filter';
@@ -27,7 +26,7 @@ export class App extends Component {
         contact => contact.name.toLowerCase() === name.toLowerCase()
       )
     ) {
-      NotificationManager.error(`${name} is already in contacts`);
+      alert(`${name} is already in contacts`);
       return;
     }
 
@@ -51,12 +50,13 @@ export class App extends Component {
     const normalizeFilter = filter.toLowerCase();
 
     return contacts.filter(contact =>
-      contact.name.toLoverCase().includes(normalizeFilter)
+      contact.name.toLowerCase().includes(normalizeFilter)
     );
   };
 
   render() {
     const { filter } = this.state;
+    const filteredContacts = this.getFilterContact();
 
     return (
       <Box p={[4]}>
@@ -65,7 +65,7 @@ export class App extends Component {
         <TitleContacts>Contacts</TitleContacts>
         <Filter onChangeFilter={this.changeFilter} value={filter} />
         <ContactList
-          contacts={this.getFilterContact}
+          contacts={filteredContacts}
           onDelete={this.deleteContacts}
         />
       </Box>

@@ -9,7 +9,7 @@ export const ElementListContacts = ({ id, name, number, onDelete }) => {
       <Text>
         {name}: {number}
       </Text>
-      <Button type="button" onClick={onDelete(id)}>
+      <Button type="button" onClick={() => onDelete(id)}>
         <AiOutlineRest />
       </Button>
     </ElementList>

@@ -17,6 +17,7 @@ export const Input = styled.input`
   display: block;
   padding: ${p => p.theme.space[2]}px;
   margin-left: ${p => p.theme.space[4]}px;
+  margin-right: ${p => p.theme.space[0]}px;
   width: 300px;
   font-family: inherit;
   font-weight: ${p => p.theme.fontWeights.normal};
