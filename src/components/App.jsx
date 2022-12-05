@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import { nanoid } from 'nanoid';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { Box } from '../components/Box';
 import Form from './Form/Form';
 import { Filter } from './Filter/Filter';
@@ -18,15 +19,31 @@ export class App extends Component {
     filter: '',
   };
 
-  addContacts = (name, number) => {
+  addContacts = (name, number, e) => {
     const { contacts } = this.state;
+    const notifyParams = {
+      position: 'center-top',
+      useIcon: false,
+      fontSize: '18px',
+      cssAnimationStyle: 'from-bottom',
+      closeButton: false,
+      background: '#e100ff',
+    };
+    const isNameAdded = contacts.find(
+      contact => contact.name.toLowerCase() === name.toLowerCase()
+    );
+    const isNumberAdded = contacts.find(contact => contact.number === number);
 
-    if (
-      contacts.find(
-        contact => contact.name.toLowerCase() === name.toLowerCase()
-      )
-    ) {
-      alert(`${name} is already in contacts`);
+    if (isNameAdded) {
+      Notify.failure(`${name} is already in contacts`, notifyParams);
+
+      e.preventDefault();
+      return;
+    }
+    if (isNumberAdded) {
+      Notify.failure(`${number} is already in contacts`, notifyParams);
+
+      e.preventDefault();
       return;
     }
 
@@ -55,7 +72,7 @@ export class App extends Component {
   };
 
   render() {
-    const { filter } = this.state;
+    const { filter, contacts } = this.state;
     const filteredContacts = this.getFilterContact();
 
     return (
@@ -64,10 +81,16 @@ export class App extends Component {
         <Form onSubmit={this.addContacts} />
         <TitleContacts>Contacts</TitleContacts>
         <Filter onChangeFilter={this.changeFilter} value={filter} />
-        <ContactList
-          contacts={filteredContacts}
-          onDelete={this.deleteContacts}
-        />
+        <>
+          {contacts.length > 0 ? (
+            <ContactList
+              contacts={filteredContacts}
+              onDelete={this.deleteContacts}
+            />
+          ) : (
+            <TitleContacts>Phonebook is empty</TitleContacts>
+          )}
+        </>
       </Box>
     );
   }
